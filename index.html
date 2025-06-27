@@ -11,24 +11,21 @@
     <div id="app">
     
     <h1>Hello World!</h1>
-    <p>{{ message }}</p>
-    <p>Random number from 1-10 : {{ Math.floor(Math.random() * 10) + 1 }}</p>
-    <p>Lucky number (Even or Odd) : {{ (Math.floor(Math.random() * 10) + 1) % 2 === 0 ? 'Even' : 'Odd' }}
-    <p>{{ getName().name }}</p>
-    </p>
+    <p>luckyNo is {{ luckyNo }}</p>
+    <p>{{ getLuckyNo() }}</p>
     </div>
 </body>
 <script>
-    const { createApp } = Vue ;
+    const { createApp , ref } = Vue ;
     createApp({
         data() {
-            const employee = {name : "Sudha"} ;
-            function getName() {
-                return employee;
-            }
+            let luckyNo = ref(0);
+            function getLuckyNo() {
+                luckyNo.value = Math.floor(Math.random() * 10);
+            }      
             return {
-                message: 'Hello Vue!',
-                getName                 
+                luckyNo,
+                getLuckyNo               
             }
         }
        
