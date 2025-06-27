@@ -12,14 +12,20 @@
     
     <h1>Hello World!</h1>
     <p>{{ message }}</p>
+    <p>Random number from 1-10 : {{ Math.floor(Math.random() * 10) + 1 }}</p>
+    <p>Lucky number (Even or Odd) : {{ (Math.floor(Math.random() * 10) + 1) % 2 === 0 ? 'Even' : 'Odd' }}
+    <p>{{ employee.name }}</p>
+    </p>
     </div>
 </body>
-><script>
+<script>
     const { createApp } = Vue ;
     createApp({
         data() {
+            const employee = {name : "Sudha"} ;
             return {
-                message: 'Hello Vue!'
+                message: 'Hello Vue!',
+                employee             
             }
         },
        
