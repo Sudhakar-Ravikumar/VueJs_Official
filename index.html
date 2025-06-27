@@ -19,10 +19,12 @@
     const { createApp , ref } = Vue ;
     createApp({
         data() {
-            let luckyNo = ref(0);
+            let luckyNo = ref(3);
             function getLuckyNo() {
-                luckyNo.value = Math.floor(Math.random() * 10);
-            }      
+                setTimeout(() => {
+                    luckyNo.value = Math.floor(Math.random() * 10);
+                }, 3000);
+            }
             return {
                 luckyNo,
                 getLuckyNo               
