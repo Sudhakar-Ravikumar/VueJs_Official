@@ -9,26 +9,24 @@
 </head>
 <body>
     <div id="app">
-    
-    <h1>Hello World!</h1>
-    <p>luckyNo is {{ luckyNo }}</p>
-    <p>{{ getLuckyNo() }}</p>
+        
+    <h1>Hello World</h1>
+    <!-- <p>{{ message }}</p> -->
+     <p v-html="message"></p>
+     <a v-bind:href="Website">Vue-Course</a>
     </div>
 </body>
 <script>
     const { createApp , ref } = Vue ;
     createApp({
+        
         data() {
-            let luckyNo = ref(3);
-            function getLuckyNo() {
-                setTimeout(() => {
-                    luckyNo.value = Math.floor(Math.random() * 10);
-                }, 3000);
-            }
-            return {
-                luckyNo,
-                getLuckyNo               
-            }
+           const Website = "https://www.youtube.com/watch?v=8pn9KEuXG28&t=2677s";
+           return {
+               message: `<h1><u>Hello World!</u></h1>`,
+               Website
+
+           };
         }
        
     }).mount('#app');
