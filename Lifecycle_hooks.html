@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vue Lifecycle Unmount Test</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="main-app">
+    <button @click="toggle">Toggle Component</button>
+    <component-box v-if="showComponent"></component-box>
+  </div>
+
+  <script>
+    const { createApp, ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted, defineComponent } = Vue;
+
+    // Define the component
+    const ComponentBox = defineComponent({
+      name: 'ComponentBox',
+      setup() {
+        const count = ref(0);
+        const increment = () => {
+          count.value++;
+        };
+
+        console.log("🚀 setup - Data declared");
+
+        onBeforeMount(() => {
+          console.log("🧱 onBeforeMount");
+        });
+
+        onMounted(() => {
+          console.log("🏗️ onMounted");
+        });
+
+        onBeforeUpdate(() => {
+          console.log("🔄 onBeforeUpdate");
+        });
+
+        onUpdated(() => {
+          console.log("♻️ onUpdated");
+        });
+
+        onBeforeUnmount(() => {
+          console.log("⚠️ onBeforeUnmount");
+        });
+
+        onUnmounted(() => {
+          console.log("❌ onUnmounted");
+        });
+
+        return { count, increment };
+      },
+      template: `
+        <div>
+          <h2>{{ count }}</h2>
+          <button @click="increment">Increment</button>
+        </div>
+      `
+    });
+
+    // Create root app
+    createApp({
+      components: {
+        ComponentBox
+      },
+      setup() {
+        const showComponent = ref(true);
+        const toggle = () => {
+          showComponent.value = !showComponent.value;
+        };
+
+        return { showComponent, toggle };
+      }
+    }).mount('#main-app');
+  </script>
+</body>
+</html>
