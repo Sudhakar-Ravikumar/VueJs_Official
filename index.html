@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -8,60 +9,46 @@
 
 </head>
 <body>
+
     <div id="app">
-        
-    <h1>Hello World</h1>
-    <!-- <p>{{ message }}</p> -->
-     <!-- <p v-html="message"></p>
-     <a v-bind:href="Website">Vue-Course</a> -->
-     <p v-show="false">This is a hidden paragraph</p>
-     <p v-show="true">This is a hidden paragraph</p>
-     
-     <p v-if="true">This is a hidden paragraph (If-true)</p>
-     <p v-if="false">This is a hidden paragraph !</p>
-     <p v-if-else="true">This is a hidden paragraph (If-else)</p>
-     <p v-else>This is a hidden paragraph (If-false (Else))</p>
-     <p v-for="(number,index) in luckyNumbers" :key="number">{{index+1}} Lucky Number: {{ number }}</p>
-     <ul>
-        <li v-for="(number,index) in luckyNumbers" :key="number">{{index+1}} Lucky Number: {{ number }}</li>
-     </ul>
-     <p v-for="(key,value) in employees" >
-        {{key}}: {{value}}
-     </p>
+    <div v-bind:style="{color: 'red', 'font-weight': 'bold', 'font-size': '20px'}">
+        <!-- //To use camelCase in Vue , Use appostrophe for hyphenated properties -->
+        <h1>Hello World</h1>
+    </div>
+    <h2>{{ message }}</h2>
+    <div v-bind:class="{h1:true}">Hey girl</div>
+ 
     </div>
 </body>
 <script>
     const { createApp , ref } = Vue ;
     createApp({
         
-        data() {
-           const Website = "https://www.youtube.com/watch?v=8pn9KEuXG28&t=2677s";
-           const luckyNumbers = [2, 4, 6, 8, 10];
-           const employees = [
-               {
-                   name: "John Doe",
-                   age: 30,
-                   position: "Software Engineer"
-               },
-               {
-                   name: "Jane Smith",
-                   age: 25,
-                   position: "Data Analyst"
-               },
-               {
-                   name: "Alice Johnson",
-                   age: 28,
-                   position: "Product Manager"
-               }
-           ];
-           return {
-               message: `<h1><u>Hello World!</u></h1>`,
-               Website ,
-               luckyNumbers,
-               employees
-           };
+        setup() {
+            // Reactive data can be defined here
+            const message = ref("Hello Vue!");
+            const title = () => {
+                return {
+                    color: 'red',
+                    'font-weight': 'bold',
+                };
+            };
+            return { message, title };
         }
+        
        
     }).mount('#app');
 </script>
+<style>
+    h2 {
+        color: blue;
+    }
+   h1 {
+       color: pink;
+   }
+   .h1 {
+       color: rgb(220, 0, 62);
+   }
+   /* h1 obeys pink color , Not to red in the case */
+</style>
 </html>

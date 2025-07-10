@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grocery CRUD with Lifecycle</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { margin: 5px; }
+    li { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>🛒 Grocery List</h1>
+    
+    <input v-model="newItem" placeholder="Enter item" />
+    <button @click="addItem">{{ editIndex === -1 ? 'Add' : 'Update' }}</button>
+    
+    <ul>
+      <li v-for="(item, index) in groceries" :key="index">
+        {{ item }}
+        <button @click="editItem(index)">✏️</button>
+        <button @click="deleteItem(index)">🗑️</button>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted, onUpdated, onBeforeUnmount, onUnmounted } = Vue;
+
+    createApp({
+      setup() {
+        const groceries = ref(["Apples", "Bananas"]);
+        const newItem = ref("");
+        const editIndex = ref(-1);
+
+        const addItem = () => {
+          const item = newItem.value.trim();
+          if (item === "") return;
+
+          if (editIndex.value === -1) {
+            groceries.value.push(item);
+            console.log("🟢 Item Added:", item);
+          } else {
+            groceries.value[editIndex.value] = item;
+            console.log("✏️ Item Updated:", item);
+            editIndex.value = -1;
+          }
+
+          newItem.value = "";
+        };
+
+        const editItem = (index) => {
+          newItem.value = groceries.value[index];
+          editIndex.value = index;
+        };
+
+        const deleteItem = (index) => {
+          console.log("❌ Deleting:", groceries.value[index]);
+          groceries.value.splice(index, 1);
+          if (editIndex.value === index) {
+            editIndex.value = -1;
+            newItem.value = "";
+          }
+        };
+
+        // Lifecycle hooks
+        console.log("🚀 setup - App initialized");
+
+        onMounted(() => {
+          console.log("🏗️ onMounted - Component is mounted");
+        });
+
+        onUpdated(() => {
+          console.log("♻️ onUpdated - DOM updated");
+        });
+
+        onBeforeUnmount(() => {
+          console.log("⚠️ onBeforeUnmount - About to unmount");
+        });
+
+        onUnmounted(() => {
+          console.log("❌ onUnmounted - Component destroyed");
+        });
+
+        return {
+          groceries,
+          newItem,
+          addItem,
+          deleteItem,
+          editItem,
+          editIndex
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
