@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -16,8 +16,9 @@
         <h1>Hello World</h1>
     </div>
     <h2>{{ message }}</h2>
-    <div v-bind:class="{h1:true}">Hey girl</div>
- 
+    <div v-bind:class = "{h1:true}">Hey girl</div>
+    <div v-bind:style = "title()">Hey boy</div>
+
     </div>
 </body>
 <script>
@@ -29,8 +30,8 @@
             const message = ref("Hello Vue!");
             const title = () => {
                 return {
-                    color: 'red',
-                    'font-weight': 'bold',
+                    color: 'orange',
+                    'font-weight': 'bold'
                 };
             };
             return { message, title };
